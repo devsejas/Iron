@@ -1,0 +1,11 @@
+
+$("ul.errors").html("");
+<% if @stock.errors.any? %>
+  
+	$('#div-error').addClass('alert alert-danger');
+	 document.getElementById("div-error").innerHTML = "<h2><%= pluralize(@stock.errors.count, 'error') %> en los siguientes campo:</h2>"+
+	" <ul><% @stock.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul>";
+<% else %>
+	$("#panel-stock").html("<%= escape_javascript(render(partial: 'items/tables_pol', locals: { item: @item, show_actions: true })) %>");
+	$("#new-stock-modal").modal("hide");
+<% end %>

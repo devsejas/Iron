@@ -1,0 +1,12 @@
+$("ul.errors").html("");
+<% if @province.errors.any? %>
+	$("#province_name").val("")
+	$('#province_name').css('border-color', 'red');
+	$('#div-error').addClass('alert alert-danger');
+	 document.getElementById("div-error").innerHTML = "<h2><%= pluralize(@province.errors.count, 'error') %> prohibited this province from being saved:</h2>"+
+	" <ul><% @province.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul>";
+
+<% else %>
+	$("#address_province_id").html("<option value= '<%=@province.id %>'><%=@province.name %></option>")
+	$("#new-country-modal").modal("hide");
+<% end %>

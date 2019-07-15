@@ -1,0 +1,10 @@
+$("ul.errors").html("");
+<% if @price.errors.any? %>
+  
+	$('#div-error').addClass('alert alert-danger');
+	 document.getElementById("div-error").innerHTML = "<h2><%= pluralize(@price.errors.count, 'error') %> en los siguientes campo:</h2>"+
+	" <ul><% @price.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul>";
+<% else %>
+	$("#panel-prices").html("<%= escape_javascript(render(partial: 'prices/index', locals: { item: @item, show_actions: true })) %>");
+	$("#new-price-modal").modal("hide");
+<% end %>

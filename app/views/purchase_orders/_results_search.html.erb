@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+    <tr>
+ <%= render partial: "pager", locals: { keywords: @keywords, page: @page } %>      
+    </tr>
+    <tr>
+      <th>Fecha </th>
+      <th>Nombre</th>
+      <th>Cliente</th>
+      <th>Estado</th>
+      <th>Note</th>
+      <th>Total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+   <% @purchase_orders.each do |po| %>
+      <tr>
+      <td><%= po.date_order %></td>
+       <td><%= po.name %></td>
+        <td><%= po.supplier.name %></td>
+        <td><%= po.state %></td>
+        <td><%= po.note %></td>
+        <td><%= po.subtotal %></td>
+        <td><%= link_to 'Show', po %></td>
+        <td><%= link_to 'Edit', edit_purchase_order_path(po) %></td>
+        <td><%= link_to 'Destroy', po, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

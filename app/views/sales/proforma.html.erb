@@ -1,0 +1,55 @@
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="white-box printableArea">
+        <h3><b>PROFORMA</b> <span class="pull-right"># <%= @sale.number %></span></h3>
+        <hr>
+         <div class="row">
+            <div class="col-md-12">
+             <div class="pull-left">
+               <address>
+                   <h3> <b class="text-danger">Importadora San Miguel</b></h3>
+                   <p class="text-muted m-l-5">E 104, Dharti-2,
+                   <br> Nr' Viswakarma Temple,
+                   <br> Talaja Road,
+                   <br> Bhavnagar - 364002</p>
+                </address>
+            </div>
+            <div class="pull-right text-right">
+               <address>
+                 <h3>A,</h3>
+                 <h4 class="font-bold"> <%= @sale.client.name %></h4>
+                 <p class="text-muted m-l-30">E 104, Dharti-2,
+                 <br> Nr' Viswakarma Temple,
+                 <br> Talaja Road,
+                 <br> Bhavnagar - 364002</p>
+                 <p class="m-t-30"><b>Invoice Date :</b> <i class="fa fa-calendar"></i> 23rd Jan 2016</p>
+                 <p><b>Due Date :</b> <i class="fa fa-calendar"></i> 25th Jan 2016</p>
+              </address>
+            </div>
+            </div>
+            <div class="col-md-12">
+                <%= render partial: 'results', locals: { sale: @sale } %>
+            </div>
+    <div class="col-md-12">
+       <div class="pull-right m-t-30 text-right">
+          <p>Sub - Monto total: $ <%=@sale.total %> </p>
+          <p>IVA (13) : $... </p>
+          <hr>
+          <h3><b>Total :</b> $<%=@sale.total %></h3> </div>
+          <div class="clearfix"></div>
+              <hr>
+              <div class="text-right">
+                <%= link_to 'Volver', sales_path,  class: "btn btn-info" %>
+
+                 <button class="btn btn-danger" type="submit"> Proceed to payment </button>
+                 <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
+            </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

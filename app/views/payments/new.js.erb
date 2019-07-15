@@ -1,0 +1,16 @@
+
+<% if @ban %>
+  $("#new-payment-modal-current").html("<%= escape_javascript(render 'new_current') %>");
+  $("#new-payment-modal-current").modal("show");
+  <% else %>
+  $("#new-payment-modal").html("<%= escape_javascript(render 'new') %>");
+  $("#new-payment-modal").modal("show");
+  $('#payment_sale').val($('#sale_number_id').text());
+
+
+<%end %>
+  
+  $('#payment_account').on('blur', function() {                       
+                 // $('#payment_cambio').val('');
+            
+   });

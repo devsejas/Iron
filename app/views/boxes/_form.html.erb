@@ -1,0 +1,42 @@
+<%= form_with(model: box, local: true) do |form| %>
+  <% if box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(box.errors.count, "error") %> prohibited this box from being saved:</h2>
+
+      <ul>
+      <% box.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :currency_id %>
+    <%= form.text_field :currency_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.number_field :active %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

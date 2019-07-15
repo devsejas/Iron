@@ -1,0 +1,53 @@
+<table class="table">
+  <thead>
+    <tr>
+      <%= render partial: "pager", locals: { keywords: @keywords, page: @page } %>
+    </tr>
+    <tr>
+      <th>N°</th>
+      <th>Fecha</th>
+      <th>Cliente</th>
+      
+      <th>Total</th>
+      <th>Saldo</th>
+      <th>dis</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sales.each do |sale| %>
+      <tr>
+        <td><%= sale.number %></td>
+        <td><%= sale.date.strftime("%d/%m/%Y") %></td>
+        <td> <%=sale.client.name %></td>        
+        <td><%= number_to_currency(sale.total) %></td>
+        <td><%= number_to_currency(sale.saldo) %></td>
+         <td><%= number_to_currency(sale.discount_all) %></td>
+         <td>
+          <%= button_to sale_path(sale), {method: :get, class: "btn btn-info"} do %>
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"> </span> 
+          <% end %>
+        </td>
+        <td>
+          <%= button_to edit_sale_path(sale), {method: :get, class: "btn btn-info"} do %>
+            <span class=" fas fa-edit" aria-hidden="true"> </span> 
+          <% end %>
+
+        </td>
+        <td>
+          
+          <%= link_to new_payment_path(:current_sale_id => sale.id), {method: :get, class: "btn btn-warning", remote: true} do %>
+          <span class="fas fa-hand-holding-usd" aria-hidden="true"> </span>
+        <% end %>
+        
+        </td>
+        <td>
+          <%= button_to sale, { method: :delete, data: { confirm: '¿Está seguro?' }, class: "btn btn-danger" } do %>
+            <span class="fas fa-trash" aria-hidden="true"> </span> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

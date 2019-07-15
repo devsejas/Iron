@@ -1,0 +1,23 @@
+<div class="panel panel-purchase">
+  <div class="panel-head">Pedidos de compra</div>
+  <div class="panel-wrapper collapse in">
+    <div class="panel-body table-responsive ">
+        <%= render partial: 'layouts/partials/search_form', locals: { search_entity: 'purchse_orders', word: "Pedido", view_kamback: '', view_list: '', url: new_purchase_order_path, ban: false } %> 
+         <%= render partial: 'results_search' %>
+         <div class="col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5">
+      <p>
+          <%= button_to new_purchase_order_path, {method: :get, class: "btn btn-success"} do %>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Nuevo Pedido
+          <% end %>
+      </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @price_list.name %>
+</p>
+
+<p>
+  <strong>Utilidad:</strong>
+  <%= @price_list.utilidad %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @price_list.state %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @price_list.date %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @price_list.company_id %>
+</p>
+
+<p>
+  <strong>User uid:</strong>
+  <%= @price_list.user_uid %>
+</p>
+
+<%= link_to 'Edit', edit_price_list_path(@price_list) %> |
+<%= link_to 'Back', price_lists_path %>

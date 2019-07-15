@@ -1,0 +1,17 @@
+
+<div class="panel panel-success">
+  <div class="panel-head">Ventas</div>
+  <div class="panel-wrapper collapse in">
+    <div class="panel-body table-responsive ">
+   <%= render partial: 'layouts/partials/search_form', locals: { search_entity: 'sales', word: "Venta", view_kamback: '', view_list: '', url: new_sale_path, ban: false } %> 
+        <%= render partial: 'results_search' %>
+         <div class="col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5">
+      <p>
+          <%= button_to myclients_path, {method: :get, class: "btn btn-success"} do %>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Nueva Venta
+          <% end %>
+      </p>
+      </div>
+    </div>
+  </div>
+</div>

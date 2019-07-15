@@ -1,0 +1,16 @@
+$("ul.errors").html("");
+<% if @country.errors.any? %>
+
+	$("#country_name").val("")
+	$('#country_name').css('border-color', 'red');
+	$('#div-error').addClass('alert alert-danger');
+	 document.getElementById("div-error").innerHTML = "<h2><%= pluralize(@country.errors.count, 'error') %> prohibited this country from being saved:</h2>"+
+	" <ul><% @country.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul>";
+
+	 // $("#div-error").html("Hello <b>world</b>!");
+<% else %>
+	$("#address_country_id").html("<option value= '<%=@country.id %>'><%=@country.name %></option>")
+	$("#new-country-modal").modal("hide");
+<% end %>
+
+

@@ -1,0 +1,93 @@
+
+    <div class="modal-body">
+      <%= form_for :sale_details, url: sale_sale_details_url, method: :post, remote: true do |f| %>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="col-xs-9">
+            <div class="form-group">
+                <%= f.label :item_id, class: "sr-only" %>
+              
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fab fa-apple"></i></div>
+                <%= f.text_field :item, placeholder: "Artículo", class: "form-control", value: nil %>
+              </div>
+                <%= f.hidden_field :item_id %>
+                <%= hidden_field_tag :item_description  %>
+             </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="form-group">
+                  <div class="input-group">
+                     <div class="input-group-addon"><i class=" fa fa-building"></i></div>
+                     <label class="form-control" id="stock_current"></label>                    
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-2">
+            <div class="form-group">
+                <%= f.label :qty, class: "sr-only" %>
+                 <div class="input-group">
+                  <div class="input-group-addon"><i class="fas fa-braille"></i></div>
+                 <%= f.text_field :qty, placeholder: "Cant.", class: "form-control" %>
+              </div>
+               
+            </div>
+          </div>
+          <div class="col-xs-2">
+            <div class="form-group">
+                <%= f.label :price, class: "sr-only" %>
+                 <div class="input-group">
+                  <div class="input-group-addon"><i class="fas fa-dollar-sign"></i></div>
+                 <%= f.text_field :price, placeholder: "Precio", class: "form-control" %>
+              </div>
+                
+            </div>
+          </div>
+         
+          <div class="col-xs-2">
+            <div class="form-group">
+                <%= f.label :discount, class: "sr-only" %>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fas fa-cut">%</i></div>
+                  <%= f.text_field :discount, placeholder: "0", class: "form-control", disabled: false %>
+              </div>
+                
+            </div>
+          </div>
+           <div class="col-xs-2">
+            <div class="form-group">
+                <%= f.label :subtotal, class: "sr-only" %>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="far fa-money-bill-alt"></i></div>
+                   <%= f.text_field :subtotal, placeholder: "0", class: "form-control", disabled: true %>
+              </div>
+             
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group" id="div_prices">
+                <%= f.label :lista, class: "sr-only" %>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="far fa-money-bill-alt"></i></div>
+
+                   <%= f.collection_select :price_id,[], :Object, :name,
+                   {include_blank: 'Seleccione precio'},
+                    {class: "form-control"} %>
+                  
+              </div>
+             
+            </div>
+          </div>
+        </div>
+        
+        <div id="div_test">
+
+        </div>
+          <%= f.submit "Aceptar", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <%= link_to "Cancelar", "#", class: "btn btn-danger", "data-dismiss": "modal" %>
+    </div>

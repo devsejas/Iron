@@ -1,0 +1,16 @@
+<section class="search-form">
+ <%= form_for search_entity, method: :get do |f| %>
+   <div class="input-group">     
+      <%= label_tag :keywords, nil, class: "sr-only" %>
+        <%= text_field_tag :keywords, nil, placeholder: "Buscar", class: "form-control", value: "#{@keywords}" %>
+       <span class="input-group-btn">
+          <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+          <span class="glyphicon glyphicon-search"></span> Buscar <%= "#{word}" %><% end %>
+          <%= link_to '', "#{view_kamback}", class: "btn btn-primary pull-right glyphicon glyphicon-th" %>
+          <%= link_to '', "#{view_list}", class: "btn btn-info pull-right glyphicon glyphicon-list" %>
+          <%= link_to '', "#{url}",  remote: ban, class: "btn btn-success pull-right glyphicon glyphicon-plus" %>
+          <%= link_to '', "" %>
+       </span>
+   </div>
+<% end %>
+</section>

@@ -1,0 +1,13 @@
+
+
+<br>
+<div class="panel panel-default" >
+ <div class="panel-heading">Marcas</div>
+ <div class="panel-body">
+  <%= render partial: 'layouts/partials/search_form', locals: { search_entity: 'brands', word: "Marca" , view_kamback: '', view_list: '', url: new_brand_path, ban: true} %>
+  
+ </div>
+ <%= render partial: 'results_search' %>
+  <div class="modal fade" id="new-brand-modal" title="Modal"></div>
+</div>
+

@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Pagos</div>
+  <div class="panel-body">
+    <%= render partial: 'layouts/partials/search_form', locals: { search_entity: 'payments', word: "Pagos", view_kamback: '', view_list: '', url:  new_payment_path, ban: true } %>
+    <br>
+    <div class="col-md-5 col-md-offset-5 col-sm-5 col-sm-offset-5">
+      <p>
+        <%= button_to new_payment_path, {method: :get, class: "btn btn-success", remote: true} do %>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"> </span> Nuevo Pago
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <%= render partial: 'results_search' %>
+  <div class="modal fade" id="new-payment-modal" title="Modal"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

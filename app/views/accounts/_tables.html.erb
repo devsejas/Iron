@@ -1,0 +1,36 @@
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Currency</th>
+      <th>Code</th>
+      <th>Deprecated</th>
+      <th>Internal type</th>
+      <th>Reconcile</th>
+      <th>Note</th>
+      <th>Company</th>
+      <th>Create uid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.name %></td>
+        <td><%= account.currency_id %></td>
+        <td><%= account.code %></td>
+        <td><%= account.deprecated %></td>
+        <td><%= account.internal_type %></td>
+        <td><%= account.reconcile %></td>
+        <td><%= account.note %></td>
+        <td><%= account.company_id %></td>
+        <td><%= account.create_uid %></td>
+        <td><%= link_to 'ver', account, class: "btn btn-info" %></td>
+        <td><%= link_to 'Editar', edit_account_path(account), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Eliminar', account, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

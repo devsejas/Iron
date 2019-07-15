@@ -1,0 +1,313 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#iprofile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="true"><span><i class="far fa-money-bill-alt"></i></span> Ventas</a></li>
+    <li role="presentation" class=""><a href="#payment" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false"><span><i class="far fa-building text-info"></i></span>Pagos</a></li>
+    <li role="presentation" class=""><a href="#ihome" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false"><span><i class="far fa-building text-info"></i></span> Pedidos</a></li>
+    <li role="presentation" class=""><a href="#contacts" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false"><span><i class="far fa-building text-info"></i></span> Contactos </a></li>
+    <li role="presentation" class=""><a href="#asig" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false"><span><i class="far fa-building text-info"></i></span> Asignado a:</a></li> 
+    <li role="presentation" class=""><a href="#sumary" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false"><span><i class="far fa-building text-info"></i></span> Resumen:</a></li>    
+</ul>
+<div class="tab-content">
+         <div role="tabpanel" class="tab-pane" id="ihome">
+
+         </div>
+
+         <div role="tabpanel" class="tab-pane" id="contacts">
+          <div class="table-responsive">    
+	          <div id="panel-stock">
+              
+             <div class="page-content container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                  <% @client.contacts.each do |contact| %>
+                    <div class="col-md-6">
+                        <div class="card panel ">
+                            <div class="card-body">
+                                <div class="row bordes">
+                                    <div class="col-md-4 text-center">
+                                        
+                                          <%= image_tag(contact.profile.large.url, :alt => "imge-item", class: "rounded-circle img-fluid") %>
+                                    
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h3 class="box-title m-b-0"><%= contact.name %></h3> <small><%=contact.title %>(<%= contact.job %>)</small>
+                                        <address>
+                                            <%=contact.email %>
+                                            <br>
+                                            <br>
+                                            <abbr title="Phone">Celular:</abbr> <%=contact.mobile %>
+                                        </address>
+                                        <span><%=contact.notes %></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <% end %>  
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+
+            </div>   
+
+
+
+	           	            
+	          </div>          	              
+          </div>
+         </div>
+         <div role="tabpanel" class="tab-pane active" id="iprofile">
+              <div class="col-md-12 col-sm-12">                                      
+                 <div class="white-box">
+                    <div class="table-responsive">
+                      <table class="table product-overview">
+                              <thead>                               
+                                <tr>
+                                  <th>Fecha</th>
+                                  <th>Numero</th>
+                                  <th>Usuario</th>
+                                  <th>Cliente</th>
+                                  <th>Monto</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <% @client.sales.each do |sale| %>
+                                  <tr>
+                                    <td><%= sale.created_at.strftime("%d/%m/%Y") %></td>
+                                    <td><%= sale.number %></td>
+                                    <td><%= sale.user.email  %></td>
+                                    <td><%= sale.client.name%></td> 
+                                    <td><%= @mycompany.get_current_currency.symbol%>. <%= sale.total%></td>                                 
+                                  </tr>
+                                <% end %>
+                              </tbody>
+                            </table>    
+                     </div>     
+                </div>
+              </div>
+           <div class="clearfix"></div>
+		 </div>
+<div role="tabpanel" class="tab-pane" id="payment">
+   <div class="table-responsive">
+           <div class="col-md-12 col-sm-12">
+                 <%=(@client.payments_all.count > 0) ? render(partial: 'payments/table_all', locals: { payments: @client.payments_all }) : 'No hay pagos Efectuados' %>                                              
+            </div>
+        </div> 
+</div>
+<!-- init asig user perfil se debe factorizar -->
+  <div role="tabpanel" class="tab-pane" id="asig">
+     <div class="col-md-12 col-sm-12">                                      
+        <div class="white-box">
+           <div class="table-responsive">
+            <div class="col-lg-3 col-xlg-4 col-md-1"> </div> 
+            <div class="col-lg-6 col-xlg-8 col-md-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <center class="mt-4"><%= image_tag(@user_asig.avatar.large.url, :alt => "imge-item", class: "rounded-circle", width: "") %> 
+
+                                    <h4 class="card-title mt-2"><%=@user_asig.name %></h4>
+                                    <h6 class="card-subtitle"><%=@user_asig.rol.name %></h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium"><%=@user_asig.initials %></font></a></div>                                       
+                                    </div>
+                                </center>
+                            </div>
+                            <div>
+                               </div>
+                            <div class="card-body"> <small class="text-muted">Dirección de correo electronico </small>
+                                <h6><%=@user_asig.email %></h6> <small class="text-muted pt-4 db">Telefono</small>
+                                <h6>+591 65316013</h6> <small class="text-muted pt-4 db">Dirección</small>
+                                <h6>Km 6 Blanco Galindo OTB sausalito calle uno</h6>
+                                <div class="map-box">
+                                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15230.310944028117!2d-66.19730164562988!3d-17.384040460083806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xae9781e7423dbe95!2sColegio+Sausalito!5e0!3m2!1ses!2sin!4v1557926624545!5m2!1ses!2sin" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                   
+                                </div> <small class="text-muted pt-4 db">Redes Sociales</small>
+                                <br>
+                                <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
+                                <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
+                                <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
+                            </div>
+                        </div>
+              </div>
+            </div>
+           </div>
+        </div>
+     </div>
+
+     <!-- end user asig perfil -->
+  </div>     
+
+
+
+<!-- contedido de user tolsl -->
+
+  <!-- <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#current-month" role="tab" aria-controls="pills-timeline" aria-selected="true">Timeline</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#last-month" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#previous-month" role="tab" aria-controls="pills-setting" aria-selected="false">Setting</a>
+                                </li>
+                            </ul>
+                       
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="current-month" role="tabpanel" aria-labelledby="pills-timeline-tab">
+                                    <div class="card-body">
+                                        <div class="steamline mt-0">
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle"> </div>
+                                                <div class="sl-right">
+                                                    <div><a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                        <p>assign a new task <a href="javascript:void(0)"> Design weblayout</a></p>
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 mb-3"><img src="../../assets/images/big/img1.jpg" class="img-fluid rounded"></div>
+                                                            <div class="col-lg-3 col-md-6 mb-3"><img src="../../assets/images/big/img2.jpg" class="img-fluid rounded"></div>
+                                                            <div class="col-lg-3 col-md-6 mb-3"><img src="../../assets/images/big/img3.jpg" class="img-fluid rounded"></div>
+                                                            <div class="col-lg-3 col-md-6 mb-3"><img src="../../assets/images/big/img4.jpg" class="img-fluid rounded"></div>
+                                                        </div>
+                                                        <div class="desc"> <a href="javascript:void(0)" class="link mr-2">2 comment</a> <a href="javascript:void(0)" class="link mr-2"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img src="../../assets/images/users/2.jpg" alt="user" class="rounded-circle"> </div>
+                                                <div class="sl-right">
+                                                    <div> <a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                        <div class="mt-3 row">
+                                                            <div class="col-md-3 col-xs-12"><img src="../../assets/images/big/img1.jpg" alt="user" class="img-fluid rounded"></div>
+                                                            <div class="col-md-9 col-xs-12">
+                                                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. </p> <a href="javascript:void(0)" class="btn btn-success"> Design weblayout</a></div>
+                                                        </div>
+                                                        <div class="desc mt-3"> <a href="javascript:void(0)" class="link mr-2">2 comment</a> <a href="javascript:void(0)" class="link mr-2"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img src="../../assets/images/users/3.jpg" alt="user" class="rounded-circle"> </div>
+                                                <div class="sl-right">
+                                                    <div><a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                        <p class="mt-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
+                                                    </div>
+                                                    <div class="desc mt-3"> <a href="javascript:void(0)" class="link mr-2">2 comment</a> <a href="javascript:void(0)" class="link mr-2"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img src="../../assets/images/users/4.jpg" alt="user" class="rounded-circle"> </div>
+                                                <div class="sl-right">
+                                                    <div><a href="javascript:void(0)" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                        <blockquote class="mt-2">
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                                        </blockquote>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="last-month" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                                <br>
+                                                <p class="text-muted">Johnathan Deo</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                                <br>
+                                                <p class="text-muted">(123) 456 7890</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                                                <br>
+                                                <p class="text-muted">johnathan@admin.com</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                                <br>
+                                                <p class="text-muted">London</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <p class="mt-4">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p>
+                                        <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                        <h4 class="font-medium mt-4">Skill Set</h4>
+                                        <hr>
+                                        <h5 class="mt-4">Wordpress <span class="pull-right">80%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                        <h5 class="mt-4">HTML 5 <span class="pull-right">90%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                        <h5 class="mt-4">jQuery <span class="pull-right">50%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                        <h5 class="mt-4">Photoshop <span class="pull-right">70%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="previous-month" role="tabpanel" aria-labelledby="pills-setting-tab">
+                                    <div class="card-body">
+                                        <form class="form-horizontal form-material">
+                                            <div class="form-group">
+                                                <label class="col-md-12">Full Name</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-email" class="col-md-12">Email</label>
+                                                <div class="col-md-12">
+                                                    <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Password</label>
+                                                <div class="col-md-12">
+                                                    <input type="password" value="password" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Phone No</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Message</label>
+                                                <div class="col-md-12">
+                                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-12">Select Country</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control form-control-line">
+                                                        <option>London</option>
+                                                        <option>India</option>
+                                                        <option>Usa</option>
+                                                        <option>Canada</option>
+                                                        <option>Thailand</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-success">Update Profile</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div> 
+                            </div> -->

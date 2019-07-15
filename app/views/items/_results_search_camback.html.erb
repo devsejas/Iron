@@ -1,0 +1,38 @@
+
+    <div class="table-responsive">
+            <table class="table product-overview">
+              <thead>
+                <tr>
+                  <%= render partial: "pager", locals: { keywords: @keywords, page: @page } %>
+                </tr>                
+              </thead>
+            </table>
+      </div>     
+
+<div class="row page-wrapper">
+  <br>
+   <% @items.each do |item| %>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="white-box">
+          <div class="product-img">
+             <%= image_tag(item.image.midium.url, :alt => "imge-item") %>
+               <div class="pro-img-overlay">                       
+                  <%= link_to '', item, class: "bg-success fas fa-binoculars" %>
+                     <%= link_to edit_item_path(item), {method: :get, class: "bg-info glyphicon glyphicon-pencil "} do %>
+                        <span  aria-hidden="true"> </span> 
+                      <% end %>
+
+
+
+                  <%= link_to '', item, method: :delete,class:"bg-danger glyphicon glyphicon-trash", data: { confirm: 'Are you sure?' } %>
+              </div>
+          </div>
+          <div class="product-text">
+              <span class="pro-price bg-success"><%=@mycompany.get_current_currency.symbol %> <%= item.price_default %></span>
+                  <h3 class="box-title m-b-0 "><%=item.category.name %>/<br><%= item.name%></h3>
+                  <small class="text-muted db"><%= item.description %></small>
+          </div>
+        </div>
+      </div>
+     <% end %>
+</div>

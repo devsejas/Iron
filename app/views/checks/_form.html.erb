@@ -1,0 +1,47 @@
+<%= form_with(model: check, local: true) do |form| %>
+  <% if check.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(check.errors.count, "error") %> prohibited this check from being saved:</h2>
+
+      <ul>
+      <% check.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :bank_id %>
+    <%= form.text_field :bank_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :number %>
+    <%= form.number_field :number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_giro %>
+    <%= form.date_select :date_giro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_payment %>
+    <%= form.date_select :date_payment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :titular %>
+    <%= form.text_field :titular %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

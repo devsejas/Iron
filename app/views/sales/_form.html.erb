@@ -1,0 +1,192 @@
+
+<div class="" id="sale-form">
+  <div class="row">
+    <div class="panel-body">
+      <%= form_for(@sale) do |f| %>
+        <% if @sale.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+            <ul>
+            <% @sale.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+ <div class="col-md-3 col-lg-3 col-sm-5 ">
+  <div class="col-md-12 col-lg-12 col-sm-12 white-box">
+       <div class="">
+        <small>Información Del Cliente</small>          
+          <div class="form-group">
+                <h2 class="m-b-0 m-t-0 m-t-40"><%= @sale.client.name %></h2>
+          </div>
+          <div class="form-group  ">
+            <span class="additional-info-wrap">
+                <label class="checkbox-inline " for="Checkboxes_Grape">
+                    <%= f.check_box :credit, id:"Checkboxes_Grape", checked: true %>
+                    <span id="id_credit">A Credito</span>
+                </label>
+                <div class="additional-info ">
+                    <%= f.date_field :credit_expiration, placeholder: "Fecha", class: "form-control" %>
+                </div>
+            </span>
+         </div>
+          <hr>
+          <h3 id="discount_client_sales">Descuento <span class="badge badge-info"><%=@sale.client.discount%>% </span></h3>                 
+          <hr>          
+          <small>Linea de Credito</small>
+          <h3>Credito <span class="badge badge-success"><%= @mycompany.get_current_currency.symbol%> <%=@sale.client.credit_limit %></span></h3>
+          <h3>Credito disponible<span class="badge badge-warning"><%= @mycompany.get_current_currency.symbol%> <%= @sale.client.line_credit_available %></span></h3>          
+       </div>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 white-box">
+        <div class="">
+            <h3 class="box-title">Dirección</h3>
+            <hr>
+            <h4><i class="ti-mobile"></i><label id="phones_clients_sales"> <%= @sale.client.phone %> - <%= @sale.client.mobile %></label></h4> <small id="address_client_sale"> <%= @sale.client.address.get_direccion_all %></small>
+        </div>
+    </div>
+  </div>
+    <div class="col-md-9 col-lg-9 col-sm-7 panel">
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body">
+                <div class="col-md-12 col-lg-12 col-sm-9">
+                    <div class="col-xs-3 col-md-3 pull-left">
+                        <div class="form-group">
+                            <%= f.label :number, "Número" %>
+                            <%= f.text_field :number, placeholder: "Número", class: "form-control" %>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-md-5">
+                        <div class="form-group">
+                            <%= f.label :discount, "Descuento %" %>
+                            <%= f.text_field :discount, value: "0", class: "form-control" %>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4 pull-right">
+                        <div class="form-group">
+                            <%= f.label :date, "Fecha" %>
+                            <%= f.date_field :date, placeholder: "Fecha", class: "form-control" %>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-4 pull-right">
+                        <div class="form-group">
+                            
+                            <%= hidden_field :price_list_id, '' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-lg-9 col-sm-7 white-box">
+        <div class="panel-wrapper collapse in" aria-expanded="true">
+            <div class="panel-body" id="sale-details">
+                 <%= (@sale.sale_details.count > 0) ? render(partial: 'table', locals: { sale: @sale, show_actions: true }) : 'No hay detalles cargados' %>
+                </div>
+                <hr>
+                <!-- aqui se debe condicionar para clientes que superan su linea de credito -->
+                <div id="action_sale_details_id">
+                    <%= link_to 'Back', sales_path, class: "btn btn-default btn-outline "  %>
+                    <% message = (action_name == 'edit') ? "Volver" : "Aceptar" %>
+                    <%= f.submit message, class: "btn btn-success" %>
+                    <%= link_to "Añadir producto", new_sale_sale_detail_path(sale_id: @sale.id), remote: true, class: "btn btn-info pull-right" %>
+                </div>                
+        </div>
+    </div>
+ </div>
+</div>
+
+<% end %>
+<div class="modal fade" id="new-detail-modal" title="Modal"></div>
+
+<!--
+
+                    <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Product Summary</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Photo</th>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2HZ_PY9EqmW6WGh9W6CXHasgKm4QUKoLOkb_U-93PDxeMx3Nd" alt="iMac" width="80"></td>
+                                            <td>Rounded Chair</td>
+                                            <td>20</td>
+                                            <td class="font-500">$153</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="font-500" align="right">Total Amount</td>
+                                            <td class="font-500">$153</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr>
+                            <h3 class="box-title">Choose payment Option</h3>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#iprofile" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span><i class="ti-credit-card"></i></span> Dabit Card</a></li>
+                                <li role="presentation" class=""><a href="#ihome" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span><i class="ti-help-alt text-info"></i></span> Paypal</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane " id="ihome"> You can pay your money through paypal, for more info <a href="">click here</a>
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-info"><i class="fa fa-cc-paypal"></i> Pay with Paypal</button>
+                                </div>
+                                <div role="tabpanel" class="tab-pane active" id="iprofile">
+                                    <div class="col-md-7 col-sm-5">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">CARD NUMBER</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-credit-card"></i></div>
+                                                    <input type="text" class="form-control" id="exampleInputuname" placeholder="Card Number"> </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-7 col-md-7">
+                                                    <div class="form-group">
+                                                        <label>EXPIRATION DATE</label>
+                                                        <input type="text" class="form-control" name="Expiry" placeholder="MM / YY" required=""> </div>
+                                                </div>
+                                                <div class="col-xs-5 col-md-5 pull-right">
+                                                    <div class="form-group">
+                                                        <label>CV CODE</label>
+                                                        <input type="text" class="form-control" name="CVC" placeholder="CVC" required=""> </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>NAME OF CARD</label>
+                                                        <input type="text" class="form-control" name="nameCard" placeholder="NAME AND SURNAME"> </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-info">Make Payment</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-4 col-sm-5 pull-right">
+                                        <h3 class="box-title m-t-10">General Info</h3>
+                                        <h2><i class="fab fa-cc-visa text-info"></i> <i class="fab fa-cc-mastercard text-danger"></i> <i class="fab fa-cc-discover text-success"></i> <i class="fab fa-cc-amex text-warning"></i></h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 -->

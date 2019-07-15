@@ -1,0 +1,11 @@
+$("ul.errors").html("");
+<% if @zona.errors.any? %>
+    $("#zona_name").val("")
+	$('#zona_name').css('border-color', 'red');
+	$('#div-error').addClass('alert alert-danger');
+	 document.getElementById("div-error").innerHTML = "<h2><%= pluralize(@zona.errors.count, 'error') %> prohibited this zona from being saved:</h2>"+
+	" <ul><% @zona.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul>";
+<% else %>
+	$("#address_zona_id").html("<option value= '<%=@zona.id %>'><%=@zona.name %></option>")
+	$("#new-country-modal").modal("hide");
+<% end %>

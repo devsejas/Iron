@@ -1,0 +1,44 @@
+<table class="table">
+  <thead>
+    <tr>
+      <%= render partial: "pager", locals: { keywords: @keywords, page: @page } %>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th>Display name</th>
+      <th>Is company</th>
+      <th>Address</th>
+      <th>Nit</th>
+      <th>Job</th>
+      <th>Phone</th>
+      <th>Mobile</th>
+      <th>Email</th>
+      <th>Web syte</th>
+      <th>Description</th>
+      <th>Company</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+   <% @suppliers.each do |supplier| %>
+      <tr>
+        <td><%= supplier.name %></td>
+        <td><%= supplier.display_name %></td>
+        <td><%= supplier.is_company %></td>
+        <td><%= supplier.address_id %></td>
+        <td><%= supplier.nit %></td>
+        <td><%= supplier.job_id %></td>
+        <td><%= supplier.phone %></td>
+        <td><%= supplier.mobile %></td>
+        <td><%= supplier.email %></td>
+        <td><%= supplier.web_syte %></td>
+        <td><%= supplier.description %></td>
+        <td><%= supplier.company_id %></td>
+        <td><%= link_to 'Show', supplier %></td>
+        <td><%= link_to 'Edit', edit_supplier_path(supplier) %></td>
+        <td><%= link_to 'Destroy', supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

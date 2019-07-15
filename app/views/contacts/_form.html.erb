@@ -1,0 +1,109 @@
+
+<div class="row">
+   
+                  <!--/span-->
+<%= form_with(model: contact, local: true) do |form| %>
+  <% if contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+      <% contact.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+        <div class="col-md-6">    
+        <div class="form-group">    
+          <%= form.label :name,  :class =>"control-label" %>          
+            <%= form.text_field :name, :class =>"form-control", :placeholder =>"Manuel Vallejos" %>
+          </div>
+        </div>    
+        <div class="col-md-6">
+          <div class="form-group">
+              <%= form.label :title,  :class =>"control-label" %>
+              <%= form.text_field :title, :class =>"form-control", :placeholder =>" Ventas" %>
+           
+          </div>
+        </div>
+      </div>
+     <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= form.label :job,  :class =>"control-label" %>
+            <%= form.text_field :job, :class =>"form-control", :placeholder =>"Gerente" %>
+              
+            </div>
+          </div>
+                                                <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+                <%= form.label :email,  :class =>"control-label" %>
+                <%= form.email_field :email, :class =>"form-control", :placeholder =>"contacto@gmail.com" %> 
+                </div>
+              </div>
+          </div>
+       <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= form.label :mobile,  :class =>"control-label" %>
+            <%= form.text_field :mobile, :class =>"form-control", :placeholder =>"65316013" %>
+              
+            </div>
+          </div>                                                <!--/span-->
+          <div class="col-md-6">
+              <div class="form-group">
+                       <%= form.label :notes,  :class =>"control-label" %>
+                       <%= form.text_field :notes, :class =>"form-control", :placeholder =>"..." %>
+              
+             </div>
+           </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+           <div class="form-group">
+              <%= form.label :client_id, "Cliente", :class =>"control-label" %>
+              <%= form.collection_select :client_id, @clients, :id, :name, 
+                  {selected: @contact.client_id, include_blank: 'Seleccione cliente'},
+                  {class: "form-control"} %>
+               
+              
+            </div>
+          </div>
+          <div class="col-md-6">
+               <div class="col-md-3"></div>
+                <div class="col-md-6">                
+                   <div class="product-img"> 
+
+                      <%= image_tag(contact.profile.large.url, :alt => "logo-img") %>
+                  <br>
+                   <div class="fileupload btn btn-info waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Subir un foto del cliente...</span>
+                   <%= form.file_field :profile, :class =>"upload"%>
+                  
+                </div>
+                </div>
+              </div>
+           </div> 
+
+          </div>
+          
+      
+             
+              
+          <div class="form-actions m-t-40 ">
+             <%= form.submit :class => "btn btn-success" %>             
+             <%= link_to 'Back', contacts_path, :class => "btn btn-default" %>
+           </div>               
+          </div>
+
+       <% end %>
+
+
+
+
+
+
+
+
+

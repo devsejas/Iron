@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Payment Terms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Active</th>
+      <th>Note</th>
+      <th>Company</th>
+      <th>Create uid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payment_terms.each do |payment_term| %>
+      <tr>
+        <td><%= payment_term.name %></td>
+        <td><%= payment_term.active %></td>
+        <td><%= payment_term.note %></td>
+        <td><%= payment_term.company_id %></td>
+        <td><%= payment_term.create_uid %></td>
+        <td><%= link_to 'Show', payment_term %></td>
+        <td><%= link_to 'Edit', edit_payment_term_path(payment_term) %></td>
+        <td><%= link_to 'Destroy', payment_term, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payment Term', new_payment_term_path %>

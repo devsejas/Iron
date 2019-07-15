@@ -1,0 +1,142 @@
+
+
+  <%= form_for(@client) do |form| %>
+  <% if client.errors.any? %>
+    <div id="error_explanation" >
+      <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="row">
+   <div class = "col-lg-12 col-md-12 col-sm-12" >
+     <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="product-img "> 
+          <%= image_tag(client.photo.large.url, :alt => "imge-item", class: "image-form") %>
+             <div class="fileupload btn btn-info waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Subir una imagen </span>
+                 <%= form.file_field :photo, :class =>"upload"%>
+              </div>
+        </div>
+      </div>
+       <div class="col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group">                 
+                  <div class="input-group">
+                    <%= form.text_field :name, placeholder: "Nombre Cliente", class: "form-controles m-t-50" %>
+                  </div>
+              <div class="input-group m-t-50">
+                 <div class="input-group-addon "><i class="fas fa-map-marker-alt"></i></div>
+                    <%= form.collection_select :address_id, @addresses, :id, :get_direccion_all,
+                        {selected: @client.address_id,  include_blank: 'Introduce una dirrección '},
+                        {class: "form-control"} %>
+                        <span class="input-group-btn">
+                          <%= link_to '/addresses/new?', {method: :get, remote: true, class: "btn waves-effect waves-light btn-success"} do %>
+                             <span class="fas fa-plus" aria-hidden="true"> </span>
+                       <% end %>
+                       </span>
+
+              </div>
+                  <div class="input-group m-t-50">         
+                      <div class="input-group-addon "><i class="fas fa-envelope-square"></i></div>
+                      <%= form.email_field :email, :class =>"form-control", :placeholder =>"ferreteria@gmail.com" %>                           
+                     
+                  </div>
+
+              </div>
+        </div>
+           <div class="col-lg-6 col-md-4 col-sm-6">
+              <a class="btn btn-app">
+                <span class="badge bg-yellow">50</span>
+                <i class=" fa fa-building"></i> Stock
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-green">300</span>
+                <i class="fa fa-barcode"></i> Products
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-purple">891</span>
+                <i class="fa fa-users"></i> Users
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-teal">67</span>
+                <i class="fa fa-inbox"></i> Orders
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-aqua">12</span>
+                <i class="fa fa-envelope"></i> Inbox
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-red">531</span>
+                <i class="fa fa-thumbs-up"></i> Likes
+              </a>
+           </div>
+   </div>
+</div>
+<hr>
+
+ <div class="row">
+  <div class="col-md-12">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= form.label :phone,  :class =>"control-label" %>
+            <%= form.text_field :phone, :class =>"form-control", :placeholder =>"+591-35125441" %>
+
+            </div>
+          </div>
+                                                <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+                <%= form.label :mobile,  :class =>"control-label" %>
+                <%= form.text_field :mobile, :class =>"form-control", :placeholder =>"+591- 65316013" %>
+            </div>
+          </div>
+                                                     <!--/span-->
+          <div class="col-md-6">
+              <div class="form-group">
+                       <%= form.label :web_site,  :class =>"control-label" %>
+                       <%= form.text_field :web_site, :class =>"form-control", :placeholder =>"www.mysitioweb.com.bo" %>
+             </div>
+           </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= form.label :discount,  :class =>"control-label" %>
+            <%= form.text_field :discount, :class =>"form-control", :placeholder =>" 20%" %>
+
+            </div>
+          </div>                                                <!--/span-->
+          <div class="col-md-6">
+              <div class="form-group">
+                       <%= form.label :credit_limit,  :class =>"control-label" %>
+                       <%= form.text_field :credit_limit, :class =>"form-control", :placeholder =>"" %>
+             </div>
+           </div>
+          <div class="col-md-6">
+          <div class="form-group">
+
+              <%= form.label :price_list_id, "Lista", :class =>"control-label" %>                      
+                        <%= form.collection_select :price_list_id, @price_lists, :id, :name,
+                        {selected: @client.price_list_id, include_blank: 'Seleccione una lista'},
+                        {class: "form-control"} %>                     
+                   
+          </div>
+        </div>
+
+   </div>
+
+</div>
+<hr>
+ 
+      <div class="row no-print ">
+        <div class="col-xs-12">
+          <%= link_to 'Back', clients_path,  class: "btn btn-default "  %>
+
+           <%= form.submit 'Guardar', :class => "btn btn-success  pull-right" %>
+        </div>
+      </div>
+    <hr> 
+<% end %>
