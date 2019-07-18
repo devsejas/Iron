@@ -1,6 +1,6 @@
 class BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_combo_values, only: [:new, :edit, :update, :create]
   # GET /boxes
   # GET /boxes.json
   def index
@@ -25,7 +25,8 @@ class BoxesController < ApplicationController
   # POST /boxes.json
   def create
     @box = Box.new(box_params)
-
+    @box.user_id = current_user.id 
+    @box.active = true
     respond_to do |format|
       if @box.save
         format.html { redirect_to @box, notice: 'Box was successfully created.' }
@@ -65,6 +66,10 @@ class BoxesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_box
       @box = Box.find(params[:id])
+    end
+    def set_combo_values
+   @currencies = Currency.all
+  
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_193401) do
     t.string "email"
     t.string "web_site"
     t.integer "price_list_id"
+    t.integer "asig_a_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
@@ -122,11 +123,11 @@ ActiveRecord::Schema.define(version: 2019_07_12_193401) do
     t.float "saldo"
     t.integer "discount"
     t.float "credit_limit"
-    t.integer "asig_a_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
+    t.string "sigla"
     t.string "nit"
     t.string "email"
     t.string "phone"
@@ -137,7 +138,6 @@ ActiveRecord::Schema.define(version: 2019_07_12_193401) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "logo"
-    t.string "sigla"
     t.index ["country_id"], name: "index_companies_on_country_id"
   end
 
@@ -288,22 +288,22 @@ ActiveRecord::Schema.define(version: 2019_07_12_193401) do
   create_table "payments", force: :cascade do |t|
     t.integer "sale_id"
     t.integer "payment_type_id"
+    t.decimal "rode"
     t.integer "num_payment"
     t.integer "discount"
     t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id"
-    t.decimal "rode"
   end
 
   create_table "presentations", force: :cascade do |t|
     t.string "name"
     t.integer "qty"
     t.integer "unit_id"
+    t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "item_id"
     t.string "image_presentation"
   end
 
@@ -440,9 +440,9 @@ ActiveRecord::Schema.define(version: 2019_07_12_193401) do
     t.integer "item_id"
     t.integer "warehouse_id"
     t.integer "purchase_order_line_id"
+    t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "state"
   end
 
   create_table "suppliers", force: :cascade do |t|

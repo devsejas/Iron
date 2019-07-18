@@ -134,7 +134,7 @@ class PurchaseOrdersController < ApplicationController
 def set_combo_values
    @suppliers = Supplier.where(state: 'confirmed').order(:name)
    @payment_terms = PaymentTerm.where(active: true).order(:name)
-   end
+end
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_order_params
       params.require(:purchase_order).permit(:name, :date_order, :supplier_id, :currency_id, :state, :note, :origen, :date_aroved, :date_planned, :amount_untaxed, :amount_tax, :amount_total, :payment_term_id, :create_uid, :company_id, purchase_order_lines_attributes:[:id, :name, :item_qty, :date_planned, :item_id, :price_unit, :price_tax, :company_id, :state, :qty_received, :purchase_order_id, :_destroy]  )

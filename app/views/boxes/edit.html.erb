@@ -1,6 +1,15 @@
-<h1>Editing Box</h1>
+<div class="row">
+	<div class="col-lg-1"> </div>
+	  <div class="col-lg-10 panel panel-purchase">
+		   <div class="white-box">
+			    <div class="">    
+					<%= render 'form', box: @box %>
+					<%= render 'box_access',box: @box %>
+				</div>
+		   </div>
+		</div>
+	<div class="col-lg-1">
+	</div>
+</div>
 
-<%= render 'form', box: @box %>
 
-<%= link_to 'Show', @box %> |
-<%= link_to 'Back', boxes_path %>
